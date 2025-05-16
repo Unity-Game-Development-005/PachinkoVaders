@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class UfoController : MonoBehaviour
 {
+    [SerializeField] private Transform ufoAmmo;
+
     private float ufoSpeed;
 
     private Vector2 ufoDirection;
@@ -23,6 +25,11 @@ public class UfoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            ufoAmmo.gameObject.SetActive(true);
+        }
+
         MoveUfo();
     }
 
