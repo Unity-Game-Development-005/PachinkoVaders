@@ -58,7 +58,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -348,7 +348,15 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      space__0009_EnemyExplosion_0: 1592950535861316487
+      space__0009_EnemyExplosion_1: 2495008787397970701
+      space__0009_EnemyExplosion_2: -6949890747143807879
+      space__0009_EnemyExplosion_3: -9107809139280544854
+      space__0009_EnemyExplosion_4: -1686333567061969450
+      space__0009_EnemyExplosion_5: -7218864881843897420
+      space__0009_EnemyExplosion_6: 8940712758957985792
+      space__0009_EnemyExplosion_7: 6239742322400296526
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

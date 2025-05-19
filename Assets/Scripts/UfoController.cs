@@ -1,18 +1,39 @@
 
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UfoController : MonoBehaviour
 {
-    [SerializeField] private Transform ufoAmmo;
+    private Rigidbody2D missileRigidbody;
+
+    [SerializeField] private Transform leftLaunchZone;
+
+    [SerializeField] private Transform leftSpaceDock;
+
+    [SerializeField] private Transform rightLaunchZone;
+
+    [SerializeField] private Transform rightSpaceDock;
+
+    [SerializeField] private Transform missileTransform;
 
     private float ufoSpeed;
 
     private Vector2 ufoDirection;
 
-    private float leftBoundary;
+    private float missileLaunchForce;
 
-    private float rightBoundary;
+    private float launchPower;
 
+    private float maximumLaunchForce;
+
+    [SerializeField] private bool canLaunch;
+
+
+
+    private void Awake()
+    {
+        missileRigidbody = GetComponentInChildren<Rigidbody2D>();
+    }
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -25,12 +46,37 @@ public class UfoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        // if the ufo is between the left wand right walls
+        if (transform.position.x < leftLaunchZone.position.x || transform.position.x > rightLaunchZone.position.x)
         {
-            ufoAmmo.gameObject.SetActive(true);
+            canLaunch = false;
         }
 
+        else
+        {
+            canLaunch = true;
+
+            missileTransform.gameObject.SetActive(true);
+
+            missileLaunchForce = launchPower * maximumLaunchForce;
+        }
+        
         MoveUfo();
+    }
+
+
+    private void FixedUpdate()
+    {
+        // if we have not launched the missile
+        if (canLaunch)
+        {
+            // then launch the missile
+            missileRigidbody.AddForce(Vector2.down * missileLaunchForce);
+
+            missileLaunchForce = 0f;
+
+            canLaunch = false;
+        }
     }
 
 
@@ -40,25 +86,30 @@ public class UfoController : MonoBehaviour
 
         ufoDirection = Vector2.right;
 
-        leftBoundary = -11f;
+        missileLaunchForce = 0f;
 
-        rightBoundary = 11f;
+        maximumLaunchForce = 90f;
+
+        launchPower = 2f;
+
+        canLaunch = false;
     }
 
 
     private void MoveUfo()
     {
-        if (transform.position.x > rightBoundary)
+        if (transform.position.x > rightSpaceDock.position.x)
         {
             ufoDirection = Vector2.left;
         }
 
-        else if (transform.position.x < leftBoundary)
+        else if (transform.position.x < leftSpaceDock.position.x)
         {
             ufoDirection = Vector2.right;
         }
 
         transform.Translate(ufoSpeed * Time.deltaTime * ufoDirection);
     }
+
 
 } // end of class
