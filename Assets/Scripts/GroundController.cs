@@ -22,7 +22,7 @@ public class GroundController : MonoBehaviour
 
     private void Initialise()
     {
-        ufoLauncherPositionY = 3.2f;
+        ufoLauncherPositionY = 3.25f;
     }
 
 

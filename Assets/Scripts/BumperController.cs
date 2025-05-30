@@ -33,9 +33,9 @@ public class BumperController : MonoBehaviour
 
         bumperDirection = Vector2.right;
 
-        leftBoundary = -1.1f;
+        leftBoundary = -1f;
 
-        rightBoundary = 1.1f;
+        rightBoundary = 1f;
     }
 
 

@@ -7,6 +7,10 @@ TagManager:
   - Ground
   - UfoMissile
   - TopWall
+  - City
+  - BaseMissile1
+  - BaseMissile2
+  - BaseMissile3
   layers:
   - Default
   - TransparentFX

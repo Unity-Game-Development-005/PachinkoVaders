@@ -1,98 +1,184 @@
 
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class UfoController : MonoBehaviour
 {
-    private Rigidbody2D missileRigidbody;
+    public GameObject missilePrefab;
+
+
+    //public Rigidbody2D missileRigidbody;
+
+    [SerializeField] private Transform missileLauncherTransform;
+
 
     [SerializeField] private Transform leftLaunchZone;
 
-    [SerializeField] private Transform leftSpaceDock;
-
     [SerializeField] private Transform rightLaunchZone;
+
+    [SerializeField] private Transform leftSpaceDock;
 
     [SerializeField] private Transform rightSpaceDock;
 
-    [SerializeField] private Transform missileTransform;
 
-    private float ufoSpeed;
+    private float ufoSpeed = 0.8f;
 
-    private Vector2 ufoDirection;
-
-    private float missileLaunchForce;
-
-    private float launchPower;
-
-    private float maximumLaunchForce;
-
-    [SerializeField] private bool canLaunch;
+    private Vector2 ufoDirection = Vector2.right;
 
 
+    //private float missileLaunchForce;
 
-    private void Awake()
-    {
-        missileRigidbody = GetComponentInChildren<Rigidbody2D>();
-    }
+    //private float launchPower;
+
+    //private float maximumLaunchForce;
+
+    //[SerializeField] private bool canLaunch;
+
+    //private bool weaponActive;
+
+
+    private float randomStartDelay = 1.0f;
+
+    private float randomFireInterval = 4.0f;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Initialise();
+        //Initialise();
+
+        SelectRandomFireRate();
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        // if the ufo is between the left wand right walls
-        if (transform.position.x < leftLaunchZone.position.x || transform.position.x > rightLaunchZone.position.x)
-        {
-            canLaunch = false;
-        }
+       // CheckForMissileLaunch();
 
-        else
-        {
-            canLaunch = true;
-
-            missileTransform.gameObject.SetActive(true);
-
-            missileLaunchForce = launchPower * maximumLaunchForce;
-        }
-        
         MoveUfo();
     }
 
 
+    private void CheckForMissileLaunch()
+    {/*
+        // if the ufo is between the left wand right walls
+        if (transform.position.x < leftLaunchZone.position.x || transform.position.x > rightLaunchZone.position.x)
+        {
+            canLaunch = false;
+
+            //weaponActive = false;
+
+            // deactivate the missile
+            //missileTransform.gameObject.SetActive(false);
+
+            return;
+        }
+
+        //else
+        //{
+        //canLaunch = true;
+
+        //missileTransform.gameObject.SetActive(true);
+
+        //missileLaunchForce = launchPower * maximumLaunchForce;
+
+
+        // }
+
+        if (!weaponActive)
+        {
+            SelectRandomFireRate();
+        }*/
+    }
+
+
     private void FixedUpdate()
-    {
+    {/*
         // if we have not launched the missile
         if (canLaunch)
         {
             // then launch the missile
-            missileRigidbody.AddForce(Vector2.down * missileLaunchForce);
+            LaunchMissile();
 
             missileLaunchForce = 0f;
 
             canLaunch = false;
+        }*/
+    }
+
+
+    private void SelectRandomFireRate()
+    {
+        // if the ufo is between the left wand right walls
+        if (transform.position.x > leftLaunchZone.position.x && transform.position.x < rightLaunchZone.position.x)
+        {
+            //return;
+
+
+            //weaponActive = true;
+
+            //missileTransform.gameObject.SetActive(true);
+
+            // select a random fire time based on the start delay time
+            float fireRate = Random.Range(randomStartDelay, randomStartDelay * randomFireInterval);
+
+            // launch missile
+            Invoke(nameof(SetLaunchPower), fireRate);
+
+            // select another randop fire rate
+            Invoke(nameof(SelectRandomFireRate), fireRate);
         }
+    }
+
+
+    private void SetLaunchPower()
+    {/*
+        // if the ufo is between the left wand right walls
+        //if (transform.position.x < leftLaunchZone.position.x || transform.position.x > rightLaunchZone.position.x)
+        //{
+            //return;
+        //}
+        
+        missileLaunchForce = launchPower * maximumLaunchForce;
+
+        canLaunch = true;*/
+
+        // Generate random ball index and random spawn position
+        //int randomBall = Random.Range(0, missilePrefab.Length);
+
+        Vector3 missileLaunchPosition = new Vector3(missileLauncherTransform.position.x, missileLauncherTransform.position.y); //new Vector3(Random.Range(spawnLimitXLeft, spawnLimitXRight), spawnPosY, 0);
+
+        // instantiate ball at random spawn location
+        Instantiate(missilePrefab, missileLaunchPosition, missilePrefab.transform.rotation);
+    }
+
+
+    private void LaunchMissile()
+    {/*
+        missileRigidbody.AddForce(Vector2.down * missileLaunchForce);*/
     }
 
 
     private void Initialise()
     {
-        ufoSpeed = 0.75f;
+        //ufoSpeed = 0.8f;
 
-        ufoDirection = Vector2.right;
+        //ufoDirection = Vector2.right;
 
-        missileLaunchForce = 0f;
+        //missileLaunchForce = 0f;
 
-        maximumLaunchForce = 90f;
+        //maximumLaunchForce = 90f;
 
-        launchPower = 2f;
+        //launchPower = 0.1f;
 
-        canLaunch = false;
+        //randomStartDelay = 1.0f;
+
+        //randomFireInterval = 4.0f;
+
+        //weaponActive = false;
+
+        //canLaunch = false;
     }
 
 
