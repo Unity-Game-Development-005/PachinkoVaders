@@ -3590,12 +3590,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967c7729eec123d4d9a4bbc47dfcc73a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missilePrefab: {fileID: 0}
-  missileLauncherTransform: {fileID: 0}
+  missilePrefab: {fileID: 8201905728277447567, guid: 9993a407efc9ad34d86cc51b105e9f1d, type: 3}
+  missileRigidbody: {fileID: 0}
+  missileLauncherTransform: {fileID: 2054451886}
   leftLaunchZone: {fileID: 2110645255}
   rightLaunchZone: {fileID: 2050304482}
   leftSpaceDock: {fileID: 1854164696}
   rightSpaceDock: {fileID: 1129504070}
+  canLaunch: 0
 --- !u!70 &703826692
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
